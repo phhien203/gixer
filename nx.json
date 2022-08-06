@@ -31,6 +31,8 @@
     "@nrwl/angular:application": {
       "style": "scss",
       "linter": "eslint",
+      "inlineStyle": true,
+      "inlineTemplate": true,
       "unitTestRunner": "jest",
       "e2eTestRunner": "cypress"
     },
@@ -39,7 +41,19 @@
       "unitTestRunner": "jest"
     },
     "@nrwl/angular:component": {
-      "style": "scss"
+      "style": "scss",
+      "flat": true,
+      "standalone": true,
+      "inlineStyle": true,
+      "displayBlock": true,
+      "inlineTemplate": true,
+      "changeDetection": "OnPush"
+    },
+    "@schematics/angular:directive": {
+      "standalone": true
+    },
+    "@schematics/angular:pipe": {
+      "standalone": true
     }
   },
   "defaultProject": "gixer-app"
