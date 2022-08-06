@@ -1,0 +1,25 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/users/feat-search-users/src",
+  "prefix": "gixer-users",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/users/feat-search-users"],
+      "options": {
+        "jestConfig": "libs/users/feat-search-users/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/users/feat-search-users/**/*.ts",
+          "libs/users/feat-search-users/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

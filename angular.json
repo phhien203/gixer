@@ -3,6 +3,7 @@
   "version": 2,
   "projects": {
     "gixer-app": "apps/gixer-app",
-    "gixer-app-e2e": "apps/gixer-app-e2e"
+    "gixer-app-e2e": "apps/gixer-app-e2e",
+    "users-feat-search-users": "libs/users/feat-search-users"
   }
 }

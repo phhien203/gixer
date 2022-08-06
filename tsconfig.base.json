@@ -14,7 +14,11 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@gixer/users/feat-search-users": [
+        "libs/users/feat-search-users/src/index.ts"
+      ]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
