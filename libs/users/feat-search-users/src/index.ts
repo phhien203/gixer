@@ -1,1 +1,1 @@
-export * from './lib/users-feat-search-users.module';
+export * from './lib/users-feat-search-users.component';
