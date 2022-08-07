@@ -17,7 +17,11 @@
           "apps/gixer-app/src/favicon.ico",
           "apps/gixer-app/src/assets"
         ],
-        "styles": ["apps/gixer-app/src/styles.scss"],
+        "styles": [
+          "node_modules/@taiga-ui/core/styles/taiga-ui-global.less",
+          "node_modules/@taiga-ui/core/styles/taiga-ui-theme.less",
+          "apps/gixer-app/src/styles.scss"
+        ],
         "scripts": []
       },
       "configurations": {

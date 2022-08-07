@@ -20,6 +20,9 @@
     "@angular/platform-browser-dynamic": "~14.1.1",
     "@angular/router": "~14.1.1",
     "@nrwl/angular": "14.5.4",
+    "@taiga-ui/cdk": "^2.57.0",
+    "@taiga-ui/core": "^2.57.0",
+    "@taiga-ui/kit": "^2.57.0",
     "rxjs": "~7.4.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
