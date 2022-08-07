@@ -1,17 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TuiInputModule } from '@taiga-ui/kit';
+import { UsersListComponent } from './users-list.component';
 
 @Component({
   selector: 'gixer-users-search-users',
   standalone: true,
-  imports: [CommonModule, TuiInputModule],
+  imports: [CommonModule, TuiInputModule, UsersListComponent],
   template: `
     <tui-input>
       Enter Github user name
       <input tuiTextfield type="text" />
     </tui-input>
-    <p>users-feat-search-users works!</p>
+    <gixer-users-users-list></gixer-users-users-list>
   `,
   styles: [
     `
