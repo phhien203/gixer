@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@gixer/users/data-access": ["libs/users/data-access/src/index.ts"],
       "@gixer/users/feat-search-users": [
         "libs/users/feat-search-users/src/index.ts"
       ]

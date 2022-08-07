@@ -1,0 +1,25 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/users/data-access/src",
+  "prefix": "gixer",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/users/data-access"],
+      "options": {
+        "jestConfig": "libs/users/data-access/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/users/data-access/**/*.ts",
+          "libs/users/data-access/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}
