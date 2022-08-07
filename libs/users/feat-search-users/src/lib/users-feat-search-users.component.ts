@@ -6,12 +6,15 @@ import {
   OnInit,
 } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { UserApiService, Users } from '@gixer/users/data-access';
-import { TuiInputModule } from '@taiga-ui/kit';
+import { UserApiService, UsersResponse } from '@gixer/users/data-access';
+import { TuiInputModule, TuiPaginationModule } from '@taiga-ui/kit';
 import {
+  BehaviorSubject,
+  catchError,
+  combineLatest,
   debounceTime,
   distinctUntilChanged,
-  map,
+  EMPTY,
   Observable,
   switchMap,
 } from 'rxjs';
@@ -24,6 +27,7 @@ import { UsersListComponent } from './users-list.component';
     CommonModule,
     ReactiveFormsModule,
     TuiInputModule,
+    TuiPaginationModule,
     UsersListComponent,
   ],
   template: `
@@ -31,10 +35,17 @@ import { UsersListComponent } from './users-list.component';
       Enter Github user name
       <input tuiTextfield type="text" />
     </tui-input>
-    <gixer-users-users-list
-      class="mt-lg"
-      [users]="(users$ | async) ?? []"
-    ></gixer-users-users-list>
+    <ng-container *ngIf="usersResponse$ | async as response">
+      <gixer-users-users-list
+        class="mt-lg"
+        [users]="response.items"
+      ></gixer-users-users-list>
+      <tui-pagination
+        [length]="response.total_count"
+        [index]="(page$ | async) ?? 0"
+        (indexChange)="goToPage($event)"
+      ></tui-pagination>
+    </ng-container>
   `,
   styles: [
     `
@@ -48,19 +59,31 @@ import { UsersListComponent } from './users-list.component';
 export class UsersFeatSearchUsersComponent implements OnInit {
   #userApiService = inject(UserApiService);
 
-  searchFormControl = new FormControl('');
+  page$ = new BehaviorSubject<number>(0);
+  usersResponse$!: Observable<UsersResponse>;
 
-  users$!: Observable<Users>;
+  searchFormControl = new FormControl('', { nonNullable: true });
 
   ngOnInit(): void {
-    this.users$ = this.searchFormControl.valueChanges.pipe(
-      debounceTime(300),
-      distinctUntilChanged(),
-      switchMap((username) =>
-        this.#userApiService
-          .findByUsername(username ?? '')
-          .pipe(map((data) => data.items)),
+    this.usersResponse$ = combineLatest([
+      this.searchFormControl.valueChanges.pipe(
+        debounceTime(300),
+        distinctUntilChanged(),
+      ),
+      this.page$,
+    ]).pipe(
+      switchMap(([username, page]) =>
+        this.#userApiService.findByUsername(username, page + 1).pipe(
+          catchError((err: unknown) => {
+            console.error(err);
+            return EMPTY;
+          }),
+        ),
       ),
     );
+  }
+
+  goToPage(page: number): void {
+    this.page$.next(page);
   }
 }
