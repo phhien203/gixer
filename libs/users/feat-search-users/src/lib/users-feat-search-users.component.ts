@@ -36,15 +36,22 @@ import { UsersListComponent } from './users-list.component';
       <input tuiTextfield type="text" />
     </tui-input>
     <ng-container *ngIf="usersResponse$ | async as response">
+      <h3 *ngIf="response.total_count > 0" class="text-center text-lg mt-md">
+        {{ response.total_count }} users
+      </h3>
+
+      <tui-pagination
+        *ngIf="response.total_count > 0"
+        [sidePadding]="3"
+        [length]="getTotalPage(response.total_count)"
+        [index]="(page$ | async) ?? 0"
+        (indexChange)="goToPage($event)"
+      ></tui-pagination>
+
       <gixer-users-users-list
         class="mt-lg"
         [users]="response.items"
       ></gixer-users-users-list>
-      <tui-pagination
-        [length]="response.total_count"
-        [index]="(page$ | async) ?? 0"
-        (indexChange)="goToPage($event)"
-      ></tui-pagination>
     </ng-container>
   `,
   styles: [
@@ -63,6 +70,10 @@ export class UsersFeatSearchUsersComponent implements OnInit {
   usersResponse$!: Observable<UsersResponse>;
 
   searchFormControl = new FormControl('', { nonNullable: true });
+
+  getTotalPage(totalCount: number): number {
+    return Math.floor(totalCount / 10) + (totalCount % 10 > 0 ? 1 : 0);
+  }
 
   ngOnInit(): void {
     this.usersResponse$ = combineLatest([
