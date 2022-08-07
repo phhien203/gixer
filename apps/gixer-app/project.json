@@ -7,6 +7,7 @@
       "executor": "@angular-devkit/build-angular:browser",
       "outputs": ["{options.outputPath}"],
       "options": {
+        "allowedCommonJsDependencies": ["@taiga-ui"],
         "outputPath": "dist/apps/gixer-app",
         "index": "apps/gixer-app/src/index.html",
         "main": "apps/gixer-app/src/main.ts",
@@ -15,7 +16,12 @@
         "inlineStyleLanguage": "scss",
         "assets": [
           "apps/gixer-app/src/favicon.ico",
-          "apps/gixer-app/src/assets"
+          "apps/gixer-app/src/assets",
+          {
+            "glob": "**/*",
+            "input": "node_modules/@taiga-ui/icons/src",
+            "output": "assets/taiga-ui/icons"
+          }
         ],
         "styles": [
           "node_modules/@taiga-ui/core/styles/taiga-ui-global.less",

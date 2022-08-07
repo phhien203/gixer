@@ -2445,6 +2445,13 @@
   dependencies:
     tslib "^1.10.0"
 
+"@taiga-ui/icons@^2.57.0":
+  version "2.57.0"
+  resolved "https://registry.yarnpkg.com/@taiga-ui/icons/-/icons-2.57.0.tgz#6aadf2746e76ff1eef50f8ff4e78a43107ab0cba"
+  integrity sha512-QroriKFEKO+HKSlEOzkpxUbyrLQcelGAiZlmqE7y0h7zokiJ3j3sX0ZsIdzT4NLT1xX2e32fWuiVjFHd3vNFPQ==
+  dependencies:
+    tslib "^1.10.0"
+
 "@taiga-ui/kit@^2.57.0":
   version "2.57.0"
   resolved "https://registry.yarnpkg.com/@taiga-ui/kit/-/kit-2.57.0.tgz#ba517ba330d7d43bfc6543d3a8a15255abec6e3b"
