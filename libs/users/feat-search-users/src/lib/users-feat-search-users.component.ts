@@ -12,7 +12,7 @@ import { UsersListComponent } from './users-list.component';
       Enter Github user name
       <input tuiTextfield type="text" />
     </tui-input>
-    <gixer-users-users-list></gixer-users-users-list>
+    <gixer-users-users-list class="mt-lg"></gixer-users-users-list>
   `,
   styles: [
     `

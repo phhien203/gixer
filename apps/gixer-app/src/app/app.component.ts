@@ -12,7 +12,7 @@ import { RouterModule } from '@angular/router';
       </header>
 
       <main
-        class="max-w-xl md:max-w-2xl lg:max-w-6xl mx-auto py-xl px-md md:px-xl grid grid-cols-1 gap-md md:grid-cols-2 lg:grid-cols-3"
+        class="max-w-lg md:max-w-2xl lg:max-w-4xl mx-auto py-xl px-md md:px-xl"
       >
         <router-outlet></router-outlet>
       </main>
