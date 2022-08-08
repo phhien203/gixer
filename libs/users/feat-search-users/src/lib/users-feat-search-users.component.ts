@@ -12,10 +12,9 @@ import {
   pageIndexChanges,
   usernameChanges,
   usernameChangesDebounced,
-  UsersDataAccessModule,
   UsersListState,
 } from '@gixer/users/data-access';
-import { Store, StoreFeatureModule } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { TuiInputModule, TuiPaginationModule } from '@taiga-ui/kit';
 import {
   debounceTime,
@@ -35,8 +34,6 @@ import { UsersListComponent } from './users-list.component';
     TuiInputModule,
     TuiPaginationModule,
     UsersListComponent,
-    StoreFeatureModule,
-    UsersDataAccessModule,
   ],
   template: `
     <tui-input [formControl]="searchFormControl">

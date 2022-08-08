@@ -1,10 +1,12 @@
 import { Routes } from '@angular/router';
-import { UsersFeatSearchUsersComponent } from '@gixer/users/feat-search-users';
 
 export const routes: Routes = [
   {
     path: 'users',
-    component: UsersFeatSearchUsersComponent,
+    loadChildren: () =>
+      import('@gixer/users/feat-search-users').then(
+        (m) => m.UsersFeatSearchUsersRoutes,
+      ),
   },
   {
     path: '**',
