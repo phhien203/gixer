@@ -5,6 +5,8 @@
     "gixer-app": "apps/gixer-app",
     "gixer-app-e2e": "apps/gixer-app-e2e",
     "users-data-access": "libs/users/data-access",
-    "users-feat-search-users": "libs/users/feat-search-users"
+    "users-feat-search-users": "libs/users/feat-search-users",
+    "users-ui": "libs/users/ui",
+    "users-util": "libs/users/util"
   }
 }

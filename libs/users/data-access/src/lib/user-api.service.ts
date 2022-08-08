@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
+import { UsersResponse } from '@gixer/users/util';
 import { Observable, of } from 'rxjs';
-import { UsersResponse } from './+state/users.models';
 import { abortable } from './abortable.operator';
 import { octokitToken } from './octokit.token';
 

@@ -5,7 +5,7 @@ import {
   Input,
   TrackByFunction,
 } from '@angular/core';
-import { UserModel } from '@gixer/users/data-access';
+import { UserModel } from '@gixer/users/util';
 
 @Component({
   selector: 'gixer-users-users-list',

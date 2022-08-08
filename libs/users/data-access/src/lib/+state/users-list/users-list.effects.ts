@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { UserModel, UsersResponse } from '@gixer/users/util';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import {
@@ -17,7 +18,6 @@ import { UserApiService } from '../../user-api.service';
 import { usernameChanges } from '../users-list-criteria/users-list-criteria.actions';
 import { UsersListCriteriaState } from '../users-list-criteria/users-list-criteria.reducer';
 import { getUsersListCriteriaState } from '../users-list-criteria/users-list-criteria.selectors';
-import { UserModel, UsersResponse } from '../users.models';
 import {
   loadUsers,
   loadUsersFailure,

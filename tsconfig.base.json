@@ -18,7 +18,9 @@
       "@gixer/users/data-access": ["libs/users/data-access/src/index.ts"],
       "@gixer/users/feat-search-users": [
         "libs/users/feat-search-users/src/index.ts"
-      ]
+      ],
+      "@gixer/users/ui": ["libs/users/ui/src/index.ts"],
+      "@gixer/users/util": ["libs/users/util/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

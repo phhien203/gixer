@@ -7,31 +7,33 @@ import { hot } from 'jasmine-marbles';
 import { Observable } from 'rxjs';
 
 import * as UsersActions from './users-list.actions';
-import { UsersEffects } from './users-list.effects';
+import { UsersListEffects } from './users-list.effects';
 
 describe('UsersEffects', () => {
   let actions: Observable<Action>;
-  let effects: UsersEffects;
+  let effects: UsersListEffects;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [NxModule.forRoot()],
       providers: [
-        UsersEffects,
+        UsersListEffects,
         provideMockActions(() => actions),
         provideMockStore(),
       ],
     });
 
-    effects = TestBed.inject(UsersEffects);
+    effects = TestBed.inject(UsersListEffects);
   });
 
   describe('init$', () => {
     it('should work', () => {
-      actions = hot('-a-|', { a: UsersActions.initUsers() });
+      actions = hot('-a-|', {
+        a: UsersActions.loadUsers({ username: '', page: 1, per_page: 5 }),
+      });
 
       const expected = hot('-a-|', {
-        a: UsersActions.loadUsersSuccess({ users: [] }),
+        a: UsersActions.loadUsersSuccess({ items: [], total_count: 0 }),
       });
 
       expect(effects.init$).toBeObservable(expected);

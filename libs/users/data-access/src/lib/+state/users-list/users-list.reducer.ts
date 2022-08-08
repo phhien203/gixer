@@ -1,6 +1,6 @@
+import { UsersResponse } from '@gixer/users/util';
 import { Action, createReducer, on } from '@ngrx/store';
 
-import { UsersResponse } from '../users.models';
 import * as UsersActions from './users-list.actions';
 
 export interface UsersListState extends UsersResponse {

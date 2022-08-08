@@ -1,0 +1,22 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/users/ui/src",
+  "prefix": "gixer",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/users/ui"],
+      "options": {
+        "jestConfig": "libs/users/ui/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/users/ui/**/*.ts", "libs/users/ui/**/*.html"]
+      }
+    }
+  },
+  "tags": []
+}

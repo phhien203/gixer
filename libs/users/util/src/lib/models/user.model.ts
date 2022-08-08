@@ -6,8 +6,3 @@ export interface UserModel {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   readonly [key: string]: any;
 }
-
-export interface UsersResponse {
-  readonly items: readonly UserModel[];
-  readonly total_count: number;
-}
