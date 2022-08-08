@@ -1,23 +1,27 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { HeaderComponent } from './header.component';
 
 @Component({
   selector: 'gixer-root',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule, HeaderComponent],
   template: `
-    <div class="">
-      <header class="p-4 bg-slate-100 text-xl font-bold shadow-md uppercase">
-        Gixer
-      </header>
+    <div class="h-full flex flex-col">
+      <gixer-header></gixer-header>
 
-      <main class="p-8">
+      <main class="flex-1 p-8">
         <router-outlet></router-outlet>
       </main>
     </div>
   `,
-  styles: [],
+  styles: [
+    `
+      :host {
+        display: block;
+        height: 100%;
+      }
+    `,
+  ],
 })
-export class AppComponent {
-  title = 'gixer-app';
-}
+export class AppComponent {}
