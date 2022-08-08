@@ -3,6 +3,7 @@ export interface UserModel {
   readonly login: string;
   readonly html_url: string;
   readonly avatar_url: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  readonly [key: string]: any;
+  readonly bio?: string | null;
+  readonly name?: string | null;
+  readonly location?: string | null;
 }

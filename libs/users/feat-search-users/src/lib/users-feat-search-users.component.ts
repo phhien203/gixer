@@ -1,21 +1,26 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import {
-  getUsersListCriteriaPage,
-  getUsersListState,
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnInit,
+} from '@angular/core';
+import {
+  featureSelector,
   pageIndexChanges,
   usernameChanges,
   usernameChangesDebounced,
-  UsersListState,
 } from '@gixer/users/data-access';
 import { UserSearchInputComponent, UsersListComponent } from '@gixer/users/ui';
+import { DEFAULT_DEBOUNCE_TIME_SEARCH_TEXT } from '@gixer/users/util';
 import { Store } from '@ngrx/store';
+import { TuiDestroyService } from '@taiga-ui/cdk';
 import { TuiPaginationModule } from '@taiga-ui/kit';
 import {
   BehaviorSubject,
   debounceTime,
   distinctUntilChanged,
-  Observable,
+  takeUntil,
   tap,
 } from 'rxjs';
 
@@ -28,27 +33,19 @@ import {
     TuiPaginationModule,
     UsersListComponent,
   ],
+  providers: [TuiDestroyService],
   template: `
     <gixer-users-search-input
       (searchTextChanges)="onSearchTextChanges($event)"
     ></gixer-users-search-input>
 
-    <ng-container *ngIf="usersListState$ | async as response">
-      <p *ngIf="response.error">{{ response.error }}</p>
-
+    <ng-container *ngIf="vm$ | async as vm">
       <gixer-users-users-list
-        class="mt-lg"
-        [usersListState]="response"
+        class="mt-4"
+        [usersListState]="vm.usersList"
+        [currentPageIndex]="vm.usersListCriteria.page"
+        (pageIndexChanges)="goToPage($event)"
       ></gixer-users-users-list>
-
-      <tui-pagination
-        *ngIf="response.total_count > 0"
-        class="py-4 my-4"
-        [sidePadding]="3"
-        [length]="getTotalPage(response.total_count)"
-        [index]="(page$ | async) ?? 0"
-        (indexChange)="goToPage($event)"
-      ></tui-pagination>
     </ng-container>
   `,
   styles: [
@@ -57,46 +54,45 @@ import {
         display: block;
         max-width: 550px;
         margin: 0 auto;
-        --tui-radius-m: 0;
+        --tui-radius-m: 999px;
       }
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UsersFeatSearchUsersComponent implements OnInit {
-  usersListState$: Observable<UsersListState> =
-    this.store.select(getUsersListState);
-  page$ = this.store.select(getUsersListCriteriaPage);
+  readonly #store = inject(Store);
+  readonly #destroy$ = inject(TuiDestroyService);
 
-  private searchTerm$ = new BehaviorSubject<string>('');
-
-  constructor(private readonly store: Store) {}
-
-  getTotalPage(totalCount: number): number {
-    return Math.floor(totalCount / 5) + (totalCount % 5 > 0 ? 1 : 0);
-  }
+  readonly vm$ = this.#store.select(featureSelector);
+  readonly #searchTerm$ = new BehaviorSubject<string>('');
 
   ngOnInit(): void {
-    this.searchTerm$
-      .asObservable()
-      .pipe(
-        tap((username) => {
-          this.store.dispatch(usernameChanges({ username }));
-        }),
-        debounceTime(1000),
-        distinctUntilChanged(),
-        tap((username) => {
-          this.store.dispatch(usernameChangesDebounced({ username }));
-        }),
-      )
-      .subscribe();
+    this.setupDataStreams();
   }
 
   onSearchTextChanges(text: string): void {
-    this.searchTerm$.next(text);
+    this.#searchTerm$.next(text);
   }
 
   goToPage(page: number): void {
-    this.store.dispatch(pageIndexChanges({ page: page + 1 }));
+    this.#store.dispatch(pageIndexChanges({ page }));
+  }
+
+  private setupDataStreams(): void {
+    this.#searchTerm$
+      .asObservable()
+      .pipe(
+        tap((username) => {
+          this.#store.dispatch(usernameChanges({ username }));
+        }),
+        debounceTime(DEFAULT_DEBOUNCE_TIME_SEARCH_TEXT),
+        distinctUntilChanged(),
+        tap((username) => {
+          this.#store.dispatch(usernameChangesDebounced({ username }));
+        }),
+        takeUntil(this.#destroy$),
+      )
+      .subscribe();
   }
 }

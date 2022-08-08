@@ -6,4 +6,5 @@ export * from './lib/+state/users-list/users-list.reducer';
 export * from './lib/+state/users-list/users-list.selectors';
 export * from './lib/+state/users.effects';
 export * from './lib/+state/users.reducers';
+export * from './lib/+state/users.selectors';
 

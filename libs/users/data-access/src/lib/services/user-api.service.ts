@@ -1,8 +1,7 @@
 import { inject, Injectable } from '@angular/core';
-import { UsersResponse } from '@gixer/users/util';
+import { abortable, DEFAULT_PAGE_SIZE, UsersResponse } from '@gixer/users/util';
 import { Observable, of } from 'rxjs';
-import { abortable } from './abortable.operator';
-import { octokitToken } from './octokit.token';
+import { octokitToken } from '../tokens/octokit.token';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +17,7 @@ export class UserApiService {
             .users({
               q: username,
               page,
-              per_page: 5,
+              per_page: DEFAULT_PAGE_SIZE,
               request: {
                 signal,
               },

@@ -1,6 +1,6 @@
+import { UsersListState } from '@gixer/users/util';
 import { createSelector } from '@ngrx/store';
 import { featureSelector } from '../users.selectors';
-import { UsersListState } from './users-list.reducer';
 
 export const getUsersListState = createSelector(
   featureSelector,

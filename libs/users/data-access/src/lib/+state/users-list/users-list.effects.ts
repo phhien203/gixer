@@ -1,10 +1,13 @@
-import { Injectable } from '@angular/core';
-import { UserModel, UsersResponse } from '@gixer/users/util';
+import { inject, Injectable } from '@angular/core';
+import {
+  UserModel,
+  UsersListCriteriaState,
+  UsersResponse,
+} from '@gixer/users/util';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import {
   catchError,
-  delay,
   filter,
   forkJoin,
   map,
@@ -14,9 +17,8 @@ import {
   takeUntil,
   zip,
 } from 'rxjs';
-import { UserApiService } from '../../user-api.service';
+import { UserApiService } from '../../services/user-api.service';
 import { usernameChanges } from '../users-list-criteria/users-list-criteria.actions';
-import { UsersListCriteriaState } from '../users-list-criteria/users-list-criteria.reducer';
 import { getUsersListCriteriaState } from '../users-list-criteria/users-list-criteria.selectors';
 import {
   loadUsers,
@@ -26,14 +28,18 @@ import {
 
 @Injectable()
 export class UsersListEffects {
+  readonly #store = inject(Store);
+  readonly #actions$ = inject(Actions);
+  readonly #apiService = inject(UserApiService);
+
   init$ = createEffect(() => {
-    return this.store
+    return this.#store
       .select(getUsersListCriteriaState)
       .pipe(map((usersListCriteria) => loadUsers(usersListCriteria)));
   });
 
   resetUsersList$ = createEffect(() => {
-    return this.actions$.pipe(
+    return this.#actions$.pipe(
       ofType(loadUsers),
       filter(
         (usersListCriteria: UsersListCriteriaState) =>
@@ -49,25 +55,26 @@ export class UsersListEffects {
   });
 
   loadUsersList$ = createEffect(() => {
-    return this.actions$.pipe(
+    return this.#actions$.pipe(
       ofType(loadUsers),
       filter(
         (usersListCriteria: UsersListCriteriaState) =>
           usersListCriteria.username !== '',
       ),
       switchMap((usersListCriteria: UsersListCriteriaState) => {
-        return this.apiService
+        return this.#apiService
           .findByUsername(usersListCriteria.username, usersListCriteria.page)
           .pipe(
-            delay(500),
             switchMap((res: UsersResponse) => {
               return zip(
                 of(res),
-                forkJoin([
-                  ...res.items.map((item) =>
-                    this.apiService.getUserDescription(item.login),
-                  ),
-                ]),
+                res.total_count === 0
+                  ? of([])
+                  : forkJoin([
+                      ...res.items.map((item) =>
+                        this.#apiService.getUserDescription(item.login),
+                      ),
+                    ]),
               );
             }),
             map(([res, users]: [UsersResponse, UserModel[]]) => {
@@ -79,9 +86,10 @@ export class UsersListEffects {
                     ...users[idx],
                   };
                 }),
+                message: res.total_count === 0 ? 'No users found' : null,
               });
             }),
-            takeUntil(this.actions$.pipe(ofType(usernameChanges), skip(1))),
+            takeUntil(this.#actions$.pipe(ofType(usernameChanges), skip(1))),
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             catchError((err: any) => {
               console.error(err);
@@ -93,10 +101,4 @@ export class UsersListEffects {
       }),
     );
   });
-
-  constructor(
-    private readonly store: Store,
-    private readonly actions$: Actions,
-    private readonly apiService: UserApiService,
-  ) {}
 }

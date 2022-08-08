@@ -1,17 +1,9 @@
+import {
+  usersListCriteriaInitialState,
+  UsersListCriteriaState,
+} from '@gixer/users/util';
 import { Action, createReducer, on } from '@ngrx/store';
 import * as UsersListCriteriaActions from './users-list-criteria.actions';
-
-export interface UsersListCriteriaState {
-  username: string;
-  page: number;
-  per_page: number;
-}
-
-const usersListCriteriaInitialState: UsersListCriteriaState = {
-  username: '',
-  page: 1,
-  per_page: 5,
-};
 
 const reducer = createReducer(
   usersListCriteriaInitialState,
@@ -20,7 +12,7 @@ const reducer = createReducer(
     (state, { username }) => ({
       ...state,
       username,
-      page: 1,
+      page: 0,
     }),
   ),
   on(UsersListCriteriaActions.pageIndexChanges, (state, { page }) => ({

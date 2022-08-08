@@ -1,12 +1,7 @@
+import { UsersListCriteriaState, UsersListState } from '@gixer/users/util';
 import { ActionReducerMap } from '@ngrx/store';
-import {
-  usersListCriteriaReducer,
-  UsersListCriteriaState,
-} from './users-list-criteria/users-list-criteria.reducer';
-import {
-  usersListReducer,
-  UsersListState,
-} from './users-list/users-list.reducer';
+import { usersListCriteriaReducer } from './users-list-criteria/users-list-criteria.reducer';
+import { usersListReducer } from './users-list/users-list.reducer';
 
 export const USERS_FEATURE_KEY = 'users';
 

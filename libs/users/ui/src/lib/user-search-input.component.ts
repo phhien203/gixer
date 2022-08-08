@@ -14,10 +14,12 @@ import { TuiInputModule } from '@taiga-ui/kit';
   imports: [FormsModule, TuiInputModule],
   template: `
     <tui-input
+      icon="tuiIconSearch"
+      [focusable]="true"
       [ngModel]="searchText"
       (ngModelChange)="searchTextChanges.emit($event)"
     >
-      Enter Github Username
+      Search by Github Username
       <input tuiTextfield type="text" />
     </tui-input>
   `,

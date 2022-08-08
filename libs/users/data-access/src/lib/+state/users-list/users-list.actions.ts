@@ -1,6 +1,5 @@
-import { UsersResponse } from '@gixer/users/util';
+import { UsersListCriteriaState, UsersResponse } from '@gixer/users/util';
 import { createAction, props } from '@ngrx/store';
-import { UsersListCriteriaState } from '../users-list-criteria/users-list-criteria.reducer';
 
 export const loadUsers = createAction(
   '[Users Page] Load Users',
