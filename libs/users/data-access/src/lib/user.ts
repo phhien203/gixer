@@ -9,10 +9,10 @@ export interface User {
 
 export type Users = readonly User[];
 
-export interface UsersResponse {
-  readonly items: Users;
-  readonly total_count: number;
-}
+// export interface UsersResponse {
+//   readonly items: Users;
+//   readonly total_count: number;
+// }
 
 // avatar_url: "https://avatars.githubusercontent.com/u/496779?v=4"
 // events_url: "https://api.github.com/users/hien/events{/privacy}"

@@ -7,26 +7,22 @@ import {
 } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import {
-  User,
-  UserApiService,
-  Users,
-  UsersResponse,
+  getUsersListCriteriaPage,
+  getUsersListState,
+  pageIndexChanges,
+  usernameChanges,
+  usernameChangesDebounced,
+  UsersDataAccessModule,
+  UsersListState,
 } from '@gixer/users/data-access';
+import { Store, StoreFeatureModule } from '@ngrx/store';
 import { TuiInputModule, TuiPaginationModule } from '@taiga-ui/kit';
 import {
-  BehaviorSubject,
-  catchError,
-  combineLatest,
   debounceTime,
   distinctUntilChanged,
-  EMPTY,
-  forkJoin,
-  map,
   Observable,
-  of,
-  switchMap,
+  startWith,
   tap,
-  zip,
 } from 'rxjs';
 import { UsersListComponent } from './users-list.component';
 
@@ -39,6 +35,8 @@ import { UsersListComponent } from './users-list.component';
     TuiInputModule,
     TuiPaginationModule,
     UsersListComponent,
+    StoreFeatureModule,
+    UsersDataAccessModule,
   ],
   template: `
     <tui-input [formControl]="searchFormControl">
@@ -46,7 +44,10 @@ import { UsersListComponent } from './users-list.component';
       <input tuiTextfield type="text" />
     </tui-input>
 
-    <ng-container *ngIf="usersResponse$ | async as response">
+    <ng-container *ngIf="usersListState$ | async as response">
+      <p *ngIf="response.error">{{ response.error }}</p>
+      <p>{{ response.loaded }}</p>
+
       <h3
         *ngIf="response.total_count > 0"
         class="text-center text-lg mt-4 mb-4"
@@ -82,59 +83,35 @@ import { UsersListComponent } from './users-list.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UsersFeatSearchUsersComponent implements OnInit {
-  #userApiService = inject(UserApiService);
+  store = inject(Store);
 
-  page$ = new BehaviorSubject<number>(0);
-  usersResponse$!: Observable<UsersResponse>;
+  usersListState$: Observable<UsersListState> =
+    this.store.select(getUsersListState);
+  page$ = this.store.select(getUsersListCriteriaPage);
 
   searchFormControl = new FormControl('', { nonNullable: true });
 
   getTotalPage(totalCount: number): number {
-    return Math.floor(totalCount / 10) + (totalCount % 10 > 0 ? 1 : 0);
+    return Math.floor(totalCount / 5) + (totalCount % 5 > 0 ? 1 : 0);
   }
 
   ngOnInit(): void {
-    this.usersResponse$ = combineLatest([
-      this.searchFormControl.valueChanges.pipe(
-        debounceTime(300),
+    this.searchFormControl.valueChanges
+      .pipe(
+        startWith(''),
+        tap((username) => {
+          this.store.dispatch(usernameChanges({ username }));
+        }),
+        debounceTime(1000),
         distinctUntilChanged(),
-      ),
-      this.page$,
-    ]).pipe(
-      switchMap(([username, page]) => {
-        return this.#userApiService.findByUsername(username, page + 1).pipe(
-          switchMap((res: UsersResponse) => {
-            return zip(
-              of(res),
-              forkJoin([
-                ...res.items.map((item) =>
-                  this.#userApiService.getUserDescription(item.login),
-                ),
-              ]),
-            );
-          }),
-          map(([res, users]: [UsersResponse, Users]) => {
-            return {
-              total_count: res.total_count,
-              items: res.items.map((item: User, idx: number) => {
-                return {
-                  ...item,
-                  ...users[idx],
-                };
-              }),
-            };
-          }),
-          tap(console.log),
-          catchError((err: unknown) => {
-            console.error(err);
-            return EMPTY;
-          }),
-        );
-      }),
-    );
+        tap((username) => {
+          this.store.dispatch(usernameChangesDebounced({ username }));
+        }),
+      )
+      .subscribe();
   }
 
   goToPage(page: number): void {
-    this.page$.next(page);
+    this.store.dispatch(pageIndexChanges({ page: page + 1 }));
   }
 }

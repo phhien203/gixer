@@ -5,7 +5,7 @@ import {
   Input,
   TrackByFunction,
 } from '@angular/core';
-import { User, Users } from '@gixer/users/data-access';
+import { UserModel } from '@gixer/users/data-access';
 
 @Component({
   selector: 'gixer-users-users-list',
@@ -46,7 +46,7 @@ import { User, Users } from '@gixer/users/data-access';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UsersListComponent {
-  @Input() users: Users = [];
+  @Input() users: readonly UserModel[] = [];
 
-  trackByUserId: TrackByFunction<User> = (_, { id }) => id;
+  trackByUserId: TrackByFunction<UserModel> = (_, { id }) => id;
 }

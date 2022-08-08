@@ -1838,6 +1838,53 @@
   dependencies:
     tslib "^1.9.0"
 
+"@ngrx/component-store@~14.0.0":
+  version "14.0.2"
+  resolved "https://registry.yarnpkg.com/@ngrx/component-store/-/component-store-14.0.2.tgz#4f354a1b22816ce70b6744581cc9921c7f6af586"
+  integrity sha512-hY5yM7ciW/Pdr14E9YiB7KAlqhZSP46l/Qwv1sr/fhXle2qoaGSjCU/4J7fRMJZXY4kbQl4ggC9II71P6Eu6vg==
+  dependencies:
+    tslib "^2.0.0"
+
+"@ngrx/effects@~14.0.0":
+  version "14.0.2"
+  resolved "https://registry.yarnpkg.com/@ngrx/effects/-/effects-14.0.2.tgz#4f448de91462a5905a58b4db8c860270e567ee83"
+  integrity sha512-1VBJ9eBoeCKSBDkn+wllV1gFGLBrRwq5So0F0QUX2rPcjpE5N1pdpuLAmmwQ84f8nttVlMOx4P9kcEM8qW9jLg==
+  dependencies:
+    tslib "^2.0.0"
+
+"@ngrx/entity@~14.0.0":
+  version "14.0.2"
+  resolved "https://registry.yarnpkg.com/@ngrx/entity/-/entity-14.0.2.tgz#839aede3e27f2853b0c85a9cc9ad0bd9f3cd91fd"
+  integrity sha512-PIyk3Z+2UfgLi3Er/EtdEgbOmTnYfrWT8RatQkOSz8lnXU/HL6ZsyWSMETY/CPasE+RcHAClOp+BGPUerAqS/g==
+  dependencies:
+    tslib "^2.0.0"
+
+"@ngrx/router-store@~14.0.0":
+  version "14.0.2"
+  resolved "https://registry.yarnpkg.com/@ngrx/router-store/-/router-store-14.0.2.tgz#4e7b3e042eadee85c9b3328415547ac34ceefdda"
+  integrity sha512-kW4//ipsZioVFeHPHQeKdn+8O0V2sPp3ydXuarsZGiosq2uQbKvYaUQqRNz2CtNyrn0z2Tw0zdEbLnvQhNrOog==
+  dependencies:
+    tslib "^2.0.0"
+
+"@ngrx/schematics@~14.0.0":
+  version "14.0.2"
+  resolved "https://registry.yarnpkg.com/@ngrx/schematics/-/schematics-14.0.2.tgz#a4f04aa0c16164ef8e80859856ae93d0fc323daf"
+  integrity sha512-j1Jb0/aSmtgknJjPsR9LC33IlOaQ5lwWGWhG4ganYz68BkfakaLJ2jLesXl8IRQOYdJGrLUyXnyEFN8mbiWN9g==
+
+"@ngrx/store-devtools@~14.0.0":
+  version "14.0.2"
+  resolved "https://registry.yarnpkg.com/@ngrx/store-devtools/-/store-devtools-14.0.2.tgz#c071ca666c6de21686de69abb1f56fd85fd924ae"
+  integrity sha512-szaJSeoWA2GAaE9uzVmH00ewlWQDCI4Xfb6/5GEKMhGNtRSh6UctulNHVR+0TjjiEb4dhUBLMOVUc9HkI+yFCQ==
+  dependencies:
+    tslib "^2.0.0"
+
+"@ngrx/store@~14.0.0":
+  version "14.0.2"
+  resolved "https://registry.yarnpkg.com/@ngrx/store/-/store-14.0.2.tgz#f9ab5fd68ea219aeb39276a9ba0e3e24b20e39aa"
+  integrity sha512-ogxcK7fj4zXCxCVJXzX2+jbVCfvC7ehbvbD5oWXT7GFajUIvA8FSXQzapUPAQEqFbjxgFzhjMFBApMaOcfleIQ==
+  dependencies:
+    tslib "^2.0.0"
+
 "@ngtools/webpack@14.1.1":
   version "14.1.1"
   resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-14.1.1.tgz#a44846f337dd5077649b0b6e561707925db580a0"
@@ -6560,6 +6607,13 @@ jasmine-marbles@~0.8.4:
   dependencies:
     lodash "^4.17.20"
 
+jasmine-marbles@~0.9.1:
+  version "0.9.2"
+  resolved "https://registry.yarnpkg.com/jasmine-marbles/-/jasmine-marbles-0.9.2.tgz#5adfee5f72c7f24270687fa64a6e8a8613ffa841"
+  integrity sha512-T7RjG4fRsdiGGzbQZ6Kj39qYt6O1/KIcR4FkUNsD3DUGkd/AzpwzN+xtk0DXlLWEz5BaVdK1SzMgQDVw879c4Q==
+  dependencies:
+    lodash "^4.17.20"
+
 jest-changed-files@^27.5.1:
   version "27.5.1"
   resolved "https://registry.yarnpkg.com/jest-changed-files/-/jest-changed-files-27.5.1.tgz#a348aed00ec9bf671cc58a66fcbe7c3dfd6a68f5"
@@ -10282,7 +10336,7 @@ tsconfig-paths@^3.9.0:
     minimist "^1.2.6"
     strip-bom "^3.0.0"
 
-tslib@2.4.0, tslib@^2, tslib@^2.1.0, tslib@^2.3.0, tslib@^2.3.1:
+tslib@2.4.0, tslib@^2, tslib@^2.0.0, tslib@^2.1.0, tslib@^2.3.0, tslib@^2.3.1:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.4.0.tgz#7cecaa7f073ce680a05847aa77be941098f36dc3"
   integrity sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==

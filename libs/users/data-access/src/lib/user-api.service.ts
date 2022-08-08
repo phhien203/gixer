@@ -1,8 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { UsersResponse } from './+state/users.models';
 import { abortable } from './abortable.operator';
 import { octokitToken } from './octokit.token';
-import { UsersResponse } from './user';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +18,7 @@ export class UserApiService {
             .users({
               q: username,
               page,
-              per_page: 10,
+              per_page: 5,
               request: {
                 signal,
               },
