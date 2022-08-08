@@ -48,6 +48,10 @@
             {
               "replace": "apps/gixer-app/src/environments/environment.ts",
               "with": "apps/gixer-app/src/environments/environment.prod.ts"
+            },
+            {
+              "replace": "apps/gixer-app/src/build-specifics/index.ts",
+              "with": "apps/gixer-app/src/build-specifics/index.prod.ts"
             }
           ],
           "outputHashing": "all"

@@ -6,6 +6,7 @@ import { StoreModule } from '@ngrx/store';
 import { AppComponent } from './app/app.component';
 
 import { routes } from './app/app.routes';
+import { extModules } from './build-specifics';
 import { environment } from './environments/environment';
 
 if (environment.production) {
@@ -18,6 +19,7 @@ bootstrapApplication(AppComponent, {
       RouterModule.forRoot(routes),
       StoreModule.forRoot({}),
       EffectsModule.forRoot([]),
+      ...extModules,
     ),
   ],
 }).catch((err) => console.error(err));
