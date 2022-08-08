@@ -35,28 +35,20 @@ import {
 
     <ng-container *ngIf="usersListState$ | async as response">
       <p *ngIf="response.error">{{ response.error }}</p>
-      <p>{{ response.loaded }}</p>
 
-      <h3
-        *ngIf="response.total_count > 0"
-        class="text-center text-lg mt-4 mb-4"
-      >
-        {{ response.total_count }} users
-      </h3>
+      <gixer-users-users-list
+        class="mt-lg"
+        [usersListState]="response"
+      ></gixer-users-users-list>
 
       <tui-pagination
         *ngIf="response.total_count > 0"
-        class="pb-4 pt-4"
+        class="py-4 my-4"
         [sidePadding]="3"
         [length]="getTotalPage(response.total_count)"
         [index]="(page$ | async) ?? 0"
         (indexChange)="goToPage($event)"
       ></tui-pagination>
-
-      <gixer-users-users-list
-        class="mt-lg"
-        [users]="response.items"
-      ></gixer-users-users-list>
     </ng-container>
   `,
   styles: [
