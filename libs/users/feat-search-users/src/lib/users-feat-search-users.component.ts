@@ -1,11 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  OnInit,
-} from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import {
   getUsersListCriteriaPage,
   getUsersListState,
@@ -14,32 +8,30 @@ import {
   usernameChangesDebounced,
   UsersListState,
 } from '@gixer/users/data-access';
+import { UserSearchInputComponent, UsersListComponent } from '@gixer/users/ui';
 import { Store } from '@ngrx/store';
-import { TuiInputModule, TuiPaginationModule } from '@taiga-ui/kit';
+import { TuiPaginationModule } from '@taiga-ui/kit';
 import {
+  BehaviorSubject,
   debounceTime,
   distinctUntilChanged,
   Observable,
-  startWith,
   tap,
 } from 'rxjs';
-import { UsersListComponent } from './users-list.component';
 
 @Component({
   selector: 'gixer-users-search-users',
   standalone: true,
   imports: [
     CommonModule,
-    ReactiveFormsModule,
-    TuiInputModule,
+    UserSearchInputComponent,
     TuiPaginationModule,
     UsersListComponent,
   ],
   template: `
-    <tui-input [formControl]="searchFormControl">
-      Enter Github Username
-      <input tuiTextfield type="text" />
-    </tui-input>
+    <gixer-users-search-input
+      (searchTextChanges)="onSearchTextChanges($event)"
+    ></gixer-users-search-input>
 
     <ng-container *ngIf="usersListState$ | async as response">
       <p *ngIf="response.error">{{ response.error }}</p>
@@ -80,22 +72,22 @@ import { UsersListComponent } from './users-list.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UsersFeatSearchUsersComponent implements OnInit {
-  store = inject(Store);
-
   usersListState$: Observable<UsersListState> =
     this.store.select(getUsersListState);
   page$ = this.store.select(getUsersListCriteriaPage);
 
-  searchFormControl = new FormControl('', { nonNullable: true });
+  private searchTerm$ = new BehaviorSubject<string>('');
+
+  constructor(private readonly store: Store) {}
 
   getTotalPage(totalCount: number): number {
     return Math.floor(totalCount / 5) + (totalCount % 5 > 0 ? 1 : 0);
   }
 
   ngOnInit(): void {
-    this.searchFormControl.valueChanges
+    this.searchTerm$
+      .asObservable()
       .pipe(
-        startWith(''),
         tap((username) => {
           this.store.dispatch(usernameChanges({ username }));
         }),
@@ -106,6 +98,10 @@ export class UsersFeatSearchUsersComponent implements OnInit {
         }),
       )
       .subscribe();
+  }
+
+  onSearchTextChanges(text: string): void {
+    this.searchTerm$.next(text);
   }
 
   goToPage(page: number): void {
