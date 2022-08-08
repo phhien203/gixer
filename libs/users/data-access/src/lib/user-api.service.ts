@@ -11,7 +11,6 @@ export class UserApiService {
   #octokit = inject(octokitToken);
 
   findByUsername(username: string, page = 1): Observable<UsersResponse> {
-
     return username === ''
       ? of({ items: [], total_count: 0 })
       : abortable((signal) =>
@@ -25,9 +24,21 @@ export class UserApiService {
               },
             })
             .then((res) => {
-              console.log('result is', res);
               return res.data;
             }),
         );
+  }
+
+  getUserDescription(username: string) {
+    return abortable((signal) =>
+      this.#octokit.users
+        .getByUsername({
+          username,
+          request: {
+            signal,
+          },
+        })
+        .then((res) => res.data),
+    );
   }
 }

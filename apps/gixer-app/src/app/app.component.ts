@@ -6,14 +6,12 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   imports: [RouterModule],
   template: `
-    <div class="font-mono">
-      <header class="px-xl py-md bg-primary-light text-xl font-bold shadow-md">
+    <div class="">
+      <header class="p-4 bg-slate-100 text-xl font-bold shadow-md uppercase">
         Gixer
       </header>
 
-      <main
-        class="max-w-lg md:max-w-2xl lg:max-w-4xl mx-auto py-xl px-md md:px-xl"
-      >
+      <main class="p-8">
         <router-outlet></router-outlet>
       </main>
     </div>
