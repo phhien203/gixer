@@ -4,9 +4,12 @@
   "prefix": "gixer",
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:browser",
+      "executor": "@nrwl/angular:webpack-browser",
       "outputs": ["{options.outputPath}"],
       "options": {
+        "customWebpackConfig": {
+          "path": "apps/gixer-app/webpack.config.js"
+        },
         "allowedCommonJsDependencies": [
           "@taiga-ui",
           "@octokit/rest",
@@ -72,7 +75,7 @@
       "defaultConfiguration": "production"
     },
     "serve": {
-      "executor": "@angular-devkit/build-angular:dev-server",
+      "executor": "@nrwl/angular:webpack-server",
       "configurations": {
         "production": {
           "browserTarget": "gixer-app:build:production"
