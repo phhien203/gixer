@@ -1,13 +1,12 @@
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'gixer-header',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [RouterModule],
   template: `
-    <header class="flex justify-between p-4 bg-slate-100  shadow-md">
+    <header class="flex justify-between p-4 bg-slate-100 shadow-md">
       <a routerLink="/" class="no-underline text-xl font-bold uppercase"
         >Gixer</a
       >

@@ -1,8 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import {
+  SearchUsersResponse,
   UserModel,
   UsersListCriteriaState,
-  UsersResponse,
 } from '@gixer/users/util';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
@@ -18,12 +18,12 @@ import {
   zip,
 } from 'rxjs';
 import { UserApiService } from '../../services/user-api.service';
-import { usernameChanges } from '../users-list-criteria/users-list-criteria.actions';
+import { UsernameChanges } from '../users-list-criteria/users-list-criteria.actions';
 import { getUsersListCriteriaState } from '../users-list-criteria/users-list-criteria.selectors';
 import {
-  loadUsers,
-  loadUsersFailure,
-  loadUsersSuccess,
+  LoadUsers,
+  LoadUsersFailure,
+  LoadUsersSuccess,
 } from './users-list.actions';
 
 @Injectable()
@@ -35,19 +35,19 @@ export class UsersListEffects {
   init$ = createEffect(() => {
     return this.#store.select(getUsersListCriteriaState).pipe(
       skip(1),
-      map((usersListCriteria) => loadUsers(usersListCriteria)),
+      map((usersListCriteria) => LoadUsers(usersListCriteria)),
     );
   });
 
   resetUsersList$ = createEffect(() => {
     return this.#actions$.pipe(
-      ofType(loadUsers),
+      ofType(LoadUsers),
       filter(
         (usersListCriteria: UsersListCriteriaState) =>
           usersListCriteria.username === '',
       ),
       map(() => {
-        return loadUsersSuccess({
+        return LoadUsersSuccess({
           items: [],
           total_count: 0,
         });
@@ -57,7 +57,7 @@ export class UsersListEffects {
 
   loadUsersList$ = createEffect(() => {
     return this.#actions$.pipe(
-      ofType(loadUsers),
+      ofType(LoadUsers),
       filter(
         (usersListCriteria: UsersListCriteriaState) =>
           usersListCriteria.username !== '',
@@ -66,7 +66,7 @@ export class UsersListEffects {
         return this.#apiService
           .findByUsername(usersListCriteria.username, usersListCriteria.page)
           .pipe(
-            switchMap((res: UsersResponse) => {
+            switchMap((res: SearchUsersResponse) => {
               return zip(
                 of(res),
                 res.total_count === 0
@@ -78,8 +78,8 @@ export class UsersListEffects {
                     ]),
               );
             }),
-            map(([res, users]: [UsersResponse, UserModel[]]) => {
-              return loadUsersSuccess({
+            map(([res, users]: [SearchUsersResponse, UserModel[]]) => {
+              return LoadUsersSuccess({
                 total_count: res.total_count,
                 items: res.items.map((item: UserModel, idx: number) => {
                   return {
@@ -90,12 +90,11 @@ export class UsersListEffects {
                 message: res.total_count === 0 ? 'No users found' : null,
               });
             }),
-            takeUntil(this.#actions$.pipe(ofType(usernameChanges), skip(1))),
+            takeUntil(this.#actions$.pipe(ofType(UsernameChanges), skip(1))),
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             catchError((err: any) => {
-              console.error(err);
               return of(
-                loadUsersFailure({ error: err?.message ?? 'Error occurs' }),
+                LoadUsersFailure({ error: err?.message ?? 'Error occurs' }),
               );
             }),
           );

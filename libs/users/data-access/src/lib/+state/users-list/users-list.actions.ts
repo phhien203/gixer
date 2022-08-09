@@ -1,17 +1,17 @@
-import { UsersListCriteriaState, UsersResponse } from '@gixer/users/util';
+import { SearchUsersResponse, UsersListCriteriaState } from '@gixer/users/util';
 import { createAction, props } from '@ngrx/store';
 
-export const loadUsers = createAction(
+export const LoadUsers = createAction(
   '[Users Page] Load Users',
   props<UsersListCriteriaState>(),
 );
 
-export const loadUsersSuccess = createAction(
+export const LoadUsersSuccess = createAction(
   '[Users/API] Load Users Success',
-  props<UsersResponse>(),
+  props<SearchUsersResponse>(),
 );
 
-export const loadUsersFailure = createAction(
+export const LoadUsersFailure = createAction(
   '[Users/API] Load Users Failure',
   props<{ error: string }>(),
 );

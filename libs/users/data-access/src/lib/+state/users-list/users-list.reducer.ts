@@ -1,17 +1,24 @@
-import { initialUsersState, UsersListState } from '@gixer/users/util';
+import { UsersListState } from '@gixer/users/util';
 import { Action, createReducer, on } from '@ngrx/store';
 
 import * as UsersActions from './users-list.actions';
 
+const initialUsersListState: UsersListState = {
+  items: [],
+  total_count: 0,
+  loaded: true,
+  error: null,
+};
+
 const reducer = createReducer(
-  initialUsersState,
-  on(UsersActions.loadUsers, (state) => ({
+  initialUsersListState,
+  on(UsersActions.LoadUsers, (state) => ({
     ...state,
     loaded: false,
     error: null,
   })),
   on(
-    UsersActions.loadUsersSuccess,
+    UsersActions.LoadUsersSuccess,
     (state, { items, total_count, message }) => {
       return {
         ...state,
@@ -22,7 +29,7 @@ const reducer = createReducer(
       };
     },
   ),
-  on(UsersActions.loadUsersFailure, (state, { error }) => ({
+  on(UsersActions.LoadUsersFailure, (state, { error }) => ({
     ...state,
     error,
     loaded: true,

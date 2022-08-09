@@ -1,13 +1,6 @@
-import { UsersResponse } from './search-users-response.model';
+import { SearchUsersResponse } from './search-users-response.model';
 
-export interface UsersListState extends UsersResponse {
+export interface UsersListState extends SearchUsersResponse {
   readonly loaded: boolean;
   readonly error?: string | null;
 }
-
-export const initialUsersState: UsersListState = {
-  items: [],
-  total_count: 0,
-  loaded: true,
-  error: null,
-};

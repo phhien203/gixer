@@ -7,9 +7,9 @@ import {
 } from '@angular/core';
 import {
   featureSelector,
-  pageIndexChanges,
-  usernameChanges,
-  usernameChangesDebounced,
+  PageIndexChanges,
+  UsernameChanges,
+  UsernameChangesDebounced,
 } from '@gixer/users/data-access';
 import { UserSearchInputComponent, UsersListComponent } from '@gixer/users/ui';
 import { DEFAULT_DEBOUNCE_TIME_SEARCH_TEXT } from '@gixer/users/util';
@@ -71,7 +71,7 @@ export class UsersFeatSearchUsersComponent implements OnInit {
   }
 
   goToPage(page: number): void {
-    this.#store.dispatch(pageIndexChanges({ page }));
+    this.#store.dispatch(PageIndexChanges({ page }));
   }
 
   private setupDataStreams(): void {
@@ -80,12 +80,12 @@ export class UsersFeatSearchUsersComponent implements OnInit {
       .pipe(
         skip(1),
         tap((username) => {
-          this.#store.dispatch(usernameChanges({ username }));
+          this.#store.dispatch(UsernameChanges({ username }));
         }),
         debounceTime(DEFAULT_DEBOUNCE_TIME_SEARCH_TEXT),
         distinctUntilChanged(),
         tap((username) => {
-          this.#store.dispatch(usernameChangesDebounced({ username }));
+          this.#store.dispatch(UsernameChangesDebounced({ username }));
         }),
         takeUntil(this.#destroy$),
       )

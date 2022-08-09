@@ -49,8 +49,8 @@ import { TuiPaginationModule } from '@taiga-ui/kit';
         *ngIf="usersListState?.total_count ?? 0 > 0"
         class="my-4"
         [sidePadding]="5"
-        [length]="usersListState?.total_count ?? 0 | tuiMapper: getTotalPage"
         [index]="currentPageIndex"
+        [length]="usersListState?.total_count ?? 0 | tuiMapper: getTotalPage"
         (indexChange)="pageIndexChanges.emit($event)"
       ></tui-pagination>
 

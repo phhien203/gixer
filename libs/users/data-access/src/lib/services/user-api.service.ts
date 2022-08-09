@@ -1,6 +1,11 @@
 import { inject, Injectable } from '@angular/core';
-import { abortable, DEFAULT_PAGE_SIZE, UsersResponse } from '@gixer/users/util';
-import { Observable, of } from 'rxjs';
+import {
+  abortable,
+  DEFAULT_PAGE_SIZE,
+  SearchUsersResponse,
+  UserModel,
+} from '@gixer/users/util';
+import { catchError, Observable, of } from 'rxjs';
 import { octokitToken } from '../tokens/octokit.token';
 
 @Injectable({
@@ -9,7 +14,7 @@ import { octokitToken } from '../tokens/octokit.token';
 export class UserApiService {
   readonly #octokit = inject(octokitToken);
 
-  findByUsername(username: string, page = 1): Observable<UsersResponse> {
+  findByUsername(username: string, page = 1): Observable<SearchUsersResponse> {
     return username === ''
       ? of({ items: [], total_count: 0 })
       : abortable((signal) =>
@@ -38,6 +43,6 @@ export class UserApiService {
           },
         })
         .then((res) => res.data),
-    );
+    ).pipe(catchError(() => of({} as UserModel)));
   }
 }

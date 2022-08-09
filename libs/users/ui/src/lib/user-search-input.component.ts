@@ -36,5 +36,6 @@ import { TuiInputModule } from '@taiga-ui/kit';
 })
 export class UserSearchInputComponent {
   @Input() searchText = '';
+
   @Output() searchTextChanges = new EventEmitter<string>();
 }

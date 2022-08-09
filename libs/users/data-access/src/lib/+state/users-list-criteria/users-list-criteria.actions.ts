@@ -1,16 +1,16 @@
 import { createAction, props } from '@ngrx/store';
 
-export const usernameChanges = createAction(
+export const UsernameChanges = createAction(
   '[Users Page] Username changes',
   props<{ username: string }>(),
 );
 
-export const usernameChangesDebounced = createAction(
+export const UsernameChangesDebounced = createAction(
   '[Users Page] Username changes debounced',
   props<{ username: string }>(),
 );
 
-export const pageIndexChanges = createAction(
+export const PageIndexChanges = createAction(
   '[Users Page] Page index changes',
   props<{ page: number }>(),
 );
