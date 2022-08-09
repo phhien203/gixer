@@ -7,6 +7,8 @@
     "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2020 browser module main",
     "start": "nx serve",
     "build": "nx build",
+    "build-stats": "npm run build -- --stats-json",
+    "bundle-report": "webpack-bundle-analyzer dist/apps/gixer-app/stats.json",
     "test": "nx test"
   },
   "private": true,
@@ -68,6 +70,7 @@
     "tailwindcss": "^3.0.2",
     "ts-jest": "27.1.4",
     "ts-node": "~10.8.0",
-    "typescript": "~4.7.2"
+    "typescript": "~4.7.2",
+    "webpack-bundle-analyzer": "^4.5.0"
   }
 }
