@@ -7,7 +7,7 @@ import { octokitToken } from '../tokens/octokit.token';
   providedIn: 'root',
 })
 export class UserApiService {
-  #octokit = inject(octokitToken);
+  readonly #octokit = inject(octokitToken);
 
   findByUsername(username: string, page = 1): Observable<UsersResponse> {
     return username === ''
@@ -16,7 +16,7 @@ export class UserApiService {
           this.#octokit.search
             .users({
               q: username,
-              page,
+              page: page + 1, // page is 1-based index
               per_page: DEFAULT_PAGE_SIZE,
               request: {
                 signal,
