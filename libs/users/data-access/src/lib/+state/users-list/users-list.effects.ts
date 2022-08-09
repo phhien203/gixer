@@ -33,9 +33,10 @@ export class UsersListEffects {
   readonly #apiService = inject(UserApiService);
 
   init$ = createEffect(() => {
-    return this.#store
-      .select(getUsersListCriteriaState)
-      .pipe(map((usersListCriteria) => loadUsers(usersListCriteria)));
+    return this.#store.select(getUsersListCriteriaState).pipe(
+      skip(1),
+      map((usersListCriteria) => loadUsers(usersListCriteria)),
+    );
   });
 
   resetUsersList$ = createEffect(() => {

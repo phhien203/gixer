@@ -12,17 +12,23 @@ import {
   UserModel,
   UsersListState,
 } from '@gixer/users/util';
+import { TuiMapperPipeModule } from '@taiga-ui/cdk';
 import { TuiLoaderModule } from '@taiga-ui/core';
 import { TuiPaginationModule } from '@taiga-ui/kit';
 
 @Component({
   selector: 'gixer-users-users-list',
   standalone: true,
-  imports: [CommonModule, TuiLoaderModule, TuiPaginationModule],
+  imports: [
+    CommonModule,
+    TuiLoaderModule,
+    TuiPaginationModule,
+    TuiMapperPipeModule,
+  ],
   template: `
     <tui-loader
       size="l"
-      [showLoader]="!usersListState?.loaded"
+      [showLoader]="!usersListState ? false : !usersListState.loaded"
       [overlay]="true"
     >
       <p
@@ -43,7 +49,7 @@ import { TuiPaginationModule } from '@taiga-ui/kit';
         *ngIf="usersListState?.total_count ?? 0 > 0"
         class="my-4"
         [sidePadding]="5"
-        [length]="getTotalPage(usersListState?.total_count ?? 0)"
+        [length]="usersListState?.total_count ?? 0 | tuiMapper: getTotalPage"
         [index]="currentPageIndex"
         (indexChange)="pageIndexChanges.emit($event)"
       ></tui-pagination>
@@ -90,12 +96,14 @@ export class UsersListComponent {
 
   @Output() pageIndexChanges = new EventEmitter<number>();
 
-  trackByUserId: TrackByFunction<UserModel> = (_, { id }) => id;
+  readonly trackByUserId: TrackByFunction<UserModel> = (_, { id }) => id;
 
-  getTotalPage(totalCount: number): number {
+  readonly getTotalPage = (
+    totalCount: number,
+    pageSize = DEFAULT_PAGE_SIZE,
+  ): number => {
     return (
-      Math.floor(totalCount / DEFAULT_PAGE_SIZE) +
-      (totalCount % DEFAULT_PAGE_SIZE > 0 ? 1 : 0)
+      Math.floor(totalCount / pageSize) + (totalCount % pageSize > 0 ? 1 : 0)
     );
-  }
+  };
 }
