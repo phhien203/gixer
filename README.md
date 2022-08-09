@@ -2,7 +2,7 @@
 
 # Gixer
 
-Gixer is a Github User Search cloned web app. It provides users the ability to search Github user by username.
+Gixer is a Github User Search cloned web app. It provides users the ability to search Github user by username. You can try the app at [gixer.netlify.app](https://gixer.netlify.app). You don't need to login to use the app.
 
 <p style="text-align: center;"><img src="https://gixer.netlify.com/assets/readme/gixer-ui.png" width="450"></p>
 
@@ -10,12 +10,13 @@ Gixer is a Github User Search cloned web app. It provides users the ability to s
 
 ## Technical Stack
 Here is the technical stack of Gixer
-- Angular v14 with standalone components
-- TaigaUI for UI components
-- TailwindCSS for styling
-- NgRx for state management
-- Github Octokit for REST API call
-- Nx build system
+- [Angular v14](https://angular.io/) with standalone components
+- [Taiga UI](https://taiga-ui.dev/getting-started) for UI components
+- [TailwindCSS](https://tailwindcss.com/) for styling
+- [NgRx](https://ngrx.io/) for state management
+- [Github Octokit](https://github.com/octokit/octokit.js) for REST API call
+- [Nx](https://nx.dev/) build system
+- [Netlify](https://www.netlify.com/) for deployment
 
 Gixer is built with performance and quality first approach.
 - All components apply the OnPush change detection strategy
