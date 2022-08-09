@@ -7,7 +7,11 @@
       "executor": "@angular-devkit/build-angular:browser",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "allowedCommonJsDependencies": ["@taiga-ui"],
+        "allowedCommonJsDependencies": [
+          "@taiga-ui",
+          "@octokit/rest",
+          "@octokit/core"
+        ],
         "outputPath": "dist/apps/gixer-app",
         "index": "apps/gixer-app/src/index.html",
         "main": "apps/gixer-app/src/main.ts",
