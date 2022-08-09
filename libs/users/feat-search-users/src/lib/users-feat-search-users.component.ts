@@ -47,7 +47,7 @@ import {
     `
       :host {
         display: block;
-        max-width: 550px;
+        max-width: 600px;
         margin: 0 auto;
         --tui-radius-m: 999px;
       }

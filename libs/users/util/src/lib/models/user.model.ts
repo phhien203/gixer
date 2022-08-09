@@ -6,4 +6,7 @@ export interface UserModel {
   readonly bio?: string | null;
   readonly name?: string | null;
   readonly location?: string | null;
+  readonly following?: number | null;
+  readonly followers?: number | null;
+  readonly blog?: string | null;
 }

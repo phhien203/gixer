@@ -74,8 +74,10 @@ import { TuiPaginationModule } from '@taiga-ui/kit';
             }}</a>
           </h3>
           <p class="text-slate-700 italic">{{ user.name }}</p>
-          <p>{{ user.bio }}</p>
-          <p>{{ user.location }}</p>
+          <p *ngIf="user.bio">Bio: {{ user.bio }}</p>
+          <p *ngIf="user.location">Location: {{ user.location }}</p>
+          <p *ngIf="user.following">Following: {{ user.following }}</p>
+          <p *ngIf="user.followers">Followers: {{ user.followers }}</p>
         </div>
       </article>
     </tui-loader>
