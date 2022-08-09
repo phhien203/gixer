@@ -3,15 +3,18 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'gixer-header',
+  selector: 'gixer-home',
   standalone: true,
   imports: [CommonModule, RouterModule],
   template: `
-    <header class="flex justify-between p-4 bg-slate-100  shadow-md">
-      <a routerLink="/" class="no-underline text-xl font-bold uppercase"
-        >Gixer</a
+    <div class="mx-auto">
+      <h1 class="text-4xl text-center my-4">Welcome to Gixer app</h1>
+      <a
+        class="text-2xl inline-block mx-auto text-center underline"
+        routerLink="/users"
+        >Search Users</a
       >
-    </header>
+    </div>
   `,
   styles: [
     `
@@ -22,4 +25,4 @@ import { RouterModule } from '@angular/router';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HeaderComponent {}
+export class HomeComponent {}

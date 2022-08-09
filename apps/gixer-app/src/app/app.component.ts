@@ -10,7 +10,7 @@ import { HeaderComponent } from './header.component';
     <div class="h-full flex flex-col">
       <gixer-header></gixer-header>
 
-      <main class="flex-1 p-8">
+      <main class="flex-1 p-8 overflow-auto">
         <router-outlet></router-outlet>
       </main>
     </div>
