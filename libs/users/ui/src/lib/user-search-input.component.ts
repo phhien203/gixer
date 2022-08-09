@@ -6,14 +6,16 @@ import {
   Output,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { TuiAutoFocusModule } from '@taiga-ui/cdk';
 import { TuiInputModule } from '@taiga-ui/kit';
 
 @Component({
   selector: 'gixer-users-search-input',
   standalone: true,
-  imports: [FormsModule, TuiInputModule],
+  imports: [FormsModule, TuiInputModule, TuiAutoFocusModule],
   template: `
     <tui-input
+      tuiAutoFocus
       icon="tuiIconSearch"
       [focusable]="true"
       [ngModel]="searchText"
