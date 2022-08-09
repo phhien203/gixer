@@ -54,6 +54,7 @@ import { TuiPaginationModule } from '@taiga-ui/kit';
       >
         <div class="w-[60px] h-[60px] flex-none">
           <img
+            loading="lazy"
             class="w-full h-full rounded-full"
             [src]="user.avatar_url"
             [alt]="'User ' + user.login + ' avatar'"
