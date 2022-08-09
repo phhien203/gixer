@@ -2,104 +2,75 @@
 
 # Gixer
 
-This project was generated using [Nx](https://nx.dev).
+Gixer is a Github User Search cloned web app. It provides users the ability to search Github user by username.
 
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
+<p style="text-align: center;"><img src="/apps/gixer-app/assets/readme/gixer-ui.png" width="450"></p>
 
-🔎 **Smart, Fast and Extensible Build System**
+**Gixer user interface**
 
-## Quick Start & Documentation
+## Technical Stack
+Here is the technical stack of Gixer
+- Angular v14 with standalone components
+- TaigaUI for UI components
+- TailwindCSS for styling
+- NgRx for state management
+- Github Octokit for REST API call
+- Nx build system
 
-[Nx Documentation](https://nx.dev/angular)
+Gixer is built with performance and quality first approach.
+- All components apply the OnPush change detection strategy
+- Images are lazy loaded
+- Pagination applied
+- Feature module is lazy loaded
+- Pipes are using instead of direct function call in templates
+- Ability for developers to analyze the bundle report, by running `npm run build-stats && npm run bundle-report`
 
-[10-minute video showing all Nx features](https://nx.dev/getting-started/intro)
+<p style="text-align: center;"><img src="/apps/gixer-app/assets/readme/gixer-bundle-report.png" width="450"></p>
 
-[Interactive Tutorial](https://nx.dev/react-tutorial/01-create-application)
+**Gixer bundle report**
 
-## Adding capabilities to your workspace
+## Features Included
+- Users search Github users by typing the username in search control
+- Users can see a list of paginated search results
+- Users can see total number of users found
+- Users can see avatar, login name, full name, bio, location, followings and followers count
+- Users can click on login name on each search result to go to the Github profile of that Github account
+- Users can see No users found message when the search criteria doesn't match any Github users
 
-Nx supports many plugins which add capabilities for developing different types of applications and different tools.
+## Project Structure
 
-These capabilities include generating applications, libraries, etc as well as the devtools to test, and build projects as well.
+The project structure conforms with the philosophy of Nx. The main app is kept as small as possible. Whereas feature modules code resides in libraries. Here is the current project structure.
 
-Below are our core plugins:
+```
+.
+├── apps/
+│   ├── gixer-app
+│   └── gixer-app-e2e
+└── libs/
+    └── users/
+        ├── data-access
+        ├── feat-search-users
+        ├── ui
+        └── util
+```
+And here is the dependency graph of Gixer app.
 
-- [Angular](https://angular.io)
-  - `ng add @nrwl/angular`
-- [React](https://reactjs.org)
-  - `ng add @nrwl/react`
-- Web (no framework frontends)
-  - `ng add @nrwl/web`
-- [Nest](https://nestjs.com)
-  - `ng add @nrwl/nest`
-- [Express](https://expressjs.com)
-  - `ng add @nrwl/express`
-- [Node](https://nodejs.org)
-  - `ng add @nrwl/node`
+<p style="text-align: center;"><img src="/apps/gixer-app/assets/readme/gixer-dependency-graph.png" width="450"></p>
 
-There are also many [community plugins](https://nx.dev/community) you could add.
+**Gixer dependency graph**
 
-## Generate an application
+## Roadmap
 
-Run `ng g @nrwl/angular:app my-app` to generate an application.
+Here are features that can be added in the future
+- Add E2E and unit tests
+- Make the search term in the input control reflected in the URL bar, so that users can bookmark the link and see the previous search results.
+- Add the ability to advanced search for users
+- Add light/dark mode toggler
+- Add metadata tags to make the app more SEO friendly.
+- Fully support for accessibility.
+- Apply custom preload strategy for lazy loaded modules
+- Opt-in Nx Cloud
 
-> You can use any of the plugins above to generate applications as well.
+## License
 
-When using Nx, you can create multiple applications and libraries in the same workspace.
-
-## Generate a library
-
-Run `ng g @nrwl/angular:lib my-lib` to generate a library.
-
-> You can also use any of the plugins above to generate libraries as well.
-
-Libraries are shareable across libraries and applications. They can be imported from `@gixer/mylib`.
-
-## Development server
-
-Run `ng serve my-app` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng g component my-component --project=my-app` to generate a new component.
-
-## Build
-
-Run `ng build my-app` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test my-app` to execute the unit tests via [Jest](https://jestjs.io).
-
-Run `nx affected:test` to execute the unit tests affected by a change.
-
-## Running end-to-end tests
-
-Run `ng e2e my-app` to execute the end-to-end tests via [Cypress](https://www.cypress.io).
-
-Run `nx affected:e2e` to execute the end-to-end tests affected by a change.
-
-## Understand your workspace
-
-Run `nx graph` to see a diagram of the dependencies of your projects.
-
-## Further help
-
-Visit the [Nx Documentation](https://nx.dev/angular) to learn more.
-
-
-
-
-
-
-## ☁ Nx Cloud
-
-### Distributed Computation Caching & Distributed Task Execution
-
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-cloud-card.png"></p>
-
-Nx Cloud pairs with Nx in order to enable you to build and test code more rapidly, by up to 10 times. Even teams that are new to Nx can connect to Nx Cloud and start saving time instantly.
-
-Teams using Nx gain the advantage of building full-stack applications with their preferred framework alongside Nx’s advanced code generation and project dependency graph, plus a unified experience for both frontend and backend developers.
-
-Visit [Nx Cloud](https://nx.app/) to learn more.
+[MIT](https://opensource.org/licenses/MIT)
