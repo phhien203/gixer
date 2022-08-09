@@ -15,7 +15,6 @@ import { UserSearchInputComponent, UsersListComponent } from '@gixer/users/ui';
 import { DEFAULT_DEBOUNCE_TIME_SEARCH_TEXT } from '@gixer/users/util';
 import { Store } from '@ngrx/store';
 import { TuiDestroyService } from '@taiga-ui/cdk';
-import { TuiPaginationModule } from '@taiga-ui/kit';
 import {
   BehaviorSubject,
   debounceTime,
@@ -27,12 +26,7 @@ import {
 @Component({
   selector: 'gixer-users-search-users',
   standalone: true,
-  imports: [
-    CommonModule,
-    UserSearchInputComponent,
-    TuiPaginationModule,
-    UsersListComponent,
-  ],
+  imports: [CommonModule, UserSearchInputComponent, UsersListComponent],
   providers: [TuiDestroyService],
   template: `
     <gixer-users-search-input
