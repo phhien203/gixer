@@ -19,6 +19,7 @@ import {
   BehaviorSubject,
   debounceTime,
   distinctUntilChanged,
+  skip,
   takeUntil,
   tap,
 } from 'rxjs';
@@ -77,6 +78,7 @@ export class UsersFeatSearchUsersComponent implements OnInit {
     this.#searchTerm$
       .asObservable()
       .pipe(
+        skip(1),
         tap((username) => {
           this.#store.dispatch(usernameChanges({ username }));
         }),
