@@ -9,7 +9,8 @@
     "build": "nx build",
     "build-stats": "npm run build -- --stats-json",
     "bundle-report": "webpack-bundle-analyzer dist/apps/gixer-app/stats.json",
-    "test": "nx test"
+    "test": "nx test",
+    "affected": "nx affected"
   },
   "private": true,
   "dependencies": {
