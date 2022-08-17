@@ -93,11 +93,14 @@ import { TuiPaginationModule } from '@taiga-ui/kit';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UsersListComponent {
+  //#region Input Output bindings
   @Input() currentPageIndex = 0;
   @Input() usersListState: UsersListState | null = null;
 
   @Output() pageIndexChanges = new EventEmitter<number>();
+  //#endregion
 
+  //#region Readonly fields
   readonly trackByUserId: TrackByFunction<UserModel> = (_, { id }) => id;
 
   readonly getTotalPage = (
@@ -108,4 +111,5 @@ export class UsersListComponent {
       Math.floor(totalCount / pageSize) + (totalCount % pageSize > 0 ? 1 : 0)
     );
   };
+  //#endregion
 }
