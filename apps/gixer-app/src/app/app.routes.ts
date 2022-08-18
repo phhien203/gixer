@@ -5,6 +5,7 @@ export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
+    title: 'Home',
     component: HomeComponent,
   },
   {

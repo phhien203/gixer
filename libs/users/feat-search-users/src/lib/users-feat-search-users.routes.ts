@@ -15,6 +15,7 @@ export const UsersFeatSearchUsersRoutes: Routes = [
     children: [
       {
         path: '',
+        title: 'Users Search',
         component: UsersFeatSearchUsersComponent,
       },
     ],
