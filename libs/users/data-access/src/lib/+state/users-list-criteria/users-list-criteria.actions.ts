@@ -1,5 +1,10 @@
 import { createAction, props } from '@ngrx/store';
 
+export const UserNameQueryChanges = createAction(
+  '[Users Page] Username query changes',
+  props<{ username: string }>(),
+);
+
 export const UsernameChanges = createAction(
   '[Users Page] Username changes',
   props<{ username: string }>(),

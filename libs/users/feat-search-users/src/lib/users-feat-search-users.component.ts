@@ -5,11 +5,13 @@ import {
   inject,
   OnInit,
 } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import {
   featureSelector,
   PageIndexChanges,
   UsernameChanges,
   UsernameChangesDebounced,
+  UserNameQueryChanges,
 } from '@gixer/users/data-access';
 import { UserSearchInputComponent, UsersListComponent } from '@gixer/users/ui';
 import { DEFAULT_DEBOUNCE_TIME_SEARCH_TEXT } from '@gixer/users/util';
@@ -19,6 +21,8 @@ import {
   BehaviorSubject,
   debounceTime,
   distinctUntilChanged,
+  filter,
+  map,
   skip,
   takeUntil,
   tap,
@@ -58,6 +62,7 @@ import {
 export class UsersFeatSearchUsersComponent implements OnInit {
   readonly #store = inject(Store);
   readonly #destroy$ = inject(TuiDestroyService);
+  readonly #route = inject(ActivatedRoute);
 
   readonly vm$ = this.#store.select(featureSelector);
   readonly #searchTerm$ = new BehaviorSubject<string>('');
@@ -86,6 +91,17 @@ export class UsersFeatSearchUsersComponent implements OnInit {
         distinctUntilChanged(),
         tap((username) => {
           this.#store.dispatch(UsernameChangesDebounced({ username }));
+        }),
+        takeUntil(this.#destroy$),
+      )
+      .subscribe();
+
+    this.#route.queryParamMap
+      .pipe(
+        map((query) => query.get('q') as string),
+        filter<string>((v) => !!v),
+        tap((username: string) => {
+          this.#store.dispatch(UserNameQueryChanges({ username }));
         }),
         takeUntil(this.#destroy$),
       )
