@@ -34,11 +34,12 @@ import {
   imports: [CommonModule, UserSearchInputComponent, UsersListComponent],
   providers: [TuiDestroyService],
   template: `
-    <gixer-users-search-input
-      (searchTextChanges)="onSearchTextChanges($event)"
-    ></gixer-users-search-input>
-
     <ng-container *ngIf="vm$ | async as vm">
+      <gixer-users-search-input
+        [searchText]="vm.usersListCriteria.username"
+        (searchTextChanges)="onSearchTextChanges($event)"
+      ></gixer-users-search-input>
+
       <gixer-users-users-list
         class="mt-4"
         [usersListState]="vm.usersList"

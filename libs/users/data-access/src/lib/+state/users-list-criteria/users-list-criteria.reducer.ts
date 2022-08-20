@@ -22,6 +22,11 @@ const reducer = createReducer(
     ...state,
     page,
   })),
+  on(UsersListCriteriaActions.UserNameQueryChanges, (state, { username }) => ({
+    ...state,
+    username,
+    page: 0,
+  })),
 );
 
 export function usersListCriteriaReducer(
