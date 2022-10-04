@@ -1,0 +1,20 @@
+{
+  "Selector test case": {
+    "prefix": "sel",
+    "body": [
+      "describe('SELECTOR: ${1:selectorName}', () => {",
+      "\tlet result: unknown;",
+      "\tlet sub: Subscription;\n",
+      "\tWhen(() => {",
+      "\t\tsub = storeSpy.select(${1:selectorName}).subscribe((val) => {",
+      "\t\t\tresult = val;",
+      "\t\t});",
+      "\t});",
+      "\n\tThen('should return ${2:users list data}', () => {",
+      "\t\texpect(result).toEqual(${3:null});",
+      "\t\tsub.unsubscribe();",
+      "\t});",
+      "});"
+    ]
+  }
+}
