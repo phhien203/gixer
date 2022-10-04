@@ -1550,6 +1550,11 @@
   resolved "https://registry.yarnpkg.com/@gar/promisify/-/promisify-1.1.3.tgz#555193ab2e3bb3b6adc3d551c9c030d9e860daf6"
   integrity sha512-k2Ty1JcVojjJFwrg/ThKi2ujJ7XNLYaFGNB/bWT9wGR+oSMJHMa5w+CUq6p/pVrKeNNgA7pCqEcjSnHVoqJQFw==
 
+"@hirez_io/jest-given@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@hirez_io/jest-given/-/jest-given-1.1.1.tgz#ed109ca04d4a1f10902ffff3c86eb784dbb3b421"
+  integrity sha512-XOwhJgJPeZweSc6LTrSgViTM7JxUXZHU0qr6vc3oJJbVgYA1rPapT4Vl3s914zLGolPi30t7XoY2bgdTzqsmZw==
+
 "@humanwhocodes/config-array@^0.9.2":
   version "0.9.5"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.9.5.tgz#2cbaf9a89460da24b5ca6531b8bbfc23e1df50c7"

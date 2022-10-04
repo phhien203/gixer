@@ -2,7 +2,10 @@
 export default {
   displayName: 'users-data-access',
   preset: '../../../jest.preset.js',
-  setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
+  setupFilesAfterEnv: [
+    '<rootDir>/src/test-setup.ts',
+    '../../../node_modules/@hirez_io/jest-given/dist/jest-given.js',
+  ],
   globals: {
     'ts-jest': {
       tsconfig: '<rootDir>/tsconfig.spec.json',
