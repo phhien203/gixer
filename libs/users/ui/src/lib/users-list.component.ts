@@ -56,9 +56,9 @@ import { TuiPaginationModule } from '@taiga-ui/kit';
 
       <article
         *ngFor="let user of usersListState?.items ?? []; trackBy: trackByUserId"
-        class=" flex bg-slate-50 p-4 shadow-xl ring-1 ring-gray-900/5 my-4 rounded-md"
+        class="font-mono text-blue flex bg-white p-[48px] my-8 rounded-[15px] card"
       >
-        <div class="w-[60px] h-[60px] flex-none">
+        <div class="w-[117px] h-[117px] flex-none">
           <img
             loading="lazy"
             class="w-full h-full rounded-full"
@@ -68,16 +68,54 @@ import { TuiPaginationModule } from '@taiga-ui/kit';
         </div>
 
         <div class="ml-4 flex-1">
-          <h3 class="text-lg text-blue-500">
+          <h3 class="text-[26px] leading-[38px] text-gray-dark font-bold">
             <a href="{{ user.html_url }}" target="_blank" rel="noopener">{{
-              user.login
+              user.name
             }}</a>
           </h3>
-          <p class="text-slate-700 italic">{{ user.name }}</p>
-          <p *ngIf="user.bio">Bio: {{ user.bio }}</p>
+          <p class="text-blue font-normal text-[16px] leading-[23px]">
+            {{ user.login }}
+          </p>
+
+          <p
+            class="text-gray font-normal text-[15px] leading-[25px] opacity-75 mt-[20px]"
+          >
+            {{ user.bio ?? 'This profile has no bio' }}
+          </p>
+
+          <div
+            class="pt-[15px] pb-[17px] px-[32px] bg-darker rounded-[10px] flex my-8"
+          >
+            <div class="flex flex-col w-1/3">
+              <span class="text-gray text-[13px] leading-[19px]">Repos</span>
+              <span
+                class="text-[22px] leading-[33px] font-bold text-gray-dark"
+                >{{ 0 ?? 0 }}</span
+              >
+            </div>
+
+            <div class="flex flex-col w-1/3">
+              <span class="text-gray text-[13px] leading-[19px]"
+                >Followers</span
+              >
+              <span
+                class="text-[22px] leading-[33px] font-bold text-gray-dark"
+                >{{ user.followers }}</span
+              >
+            </div>
+
+            <div class="flex flex-col w-1/3">
+              <span class="text-gray text-[13px] leading-[19px]"
+                >Following</span
+              >
+              <span
+                class="text-[22px] leading-[33px] font-bold text-gray-dark"
+                >{{ user.following }}</span
+              >
+            </div>
+          </div>
+
           <p *ngIf="user.location">Location: {{ user.location }}</p>
-          <p *ngIf="user.following">Following: {{ user.following }}</p>
-          <p *ngIf="user.followers">Followers: {{ user.followers }}</p>
         </div>
       </article>
     </tui-loader>
@@ -87,6 +125,9 @@ import { TuiPaginationModule } from '@taiga-ui/kit';
       :host {
         display: block;
         min-height: 200px;
+      }
+      .card {
+        box-shadow: 0px 16px 30px -10px rgba(70, 96, 187, 0.198567);
       }
     `,
   ],
